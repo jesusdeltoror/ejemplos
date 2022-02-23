@@ -34,7 +34,7 @@ router.get('/:nombre', function(req, res, next) {
 
 async function buscarDatos(nom){
     await client.connect();
-    const db = client.db(dbname);
+    const db = client.db(dbName);
     const collection = db.collection("usuariosEjemplo");
     let datos = await collection.find({nombre: nom}).toArray();
     return datos;
@@ -42,8 +42,13 @@ async function buscarDatos(nom){
 
 // Insertar Datos Consulta Básica
 router.post('/insertar', function(req, res, next){
-    insertarDatos(req.body);
-    res.redirect('/consultas');
+    insertarDatos(req.body)
+    .then(() => {
+        res.redirect('/consultas');
+    })
+    .catch((err) => {
+        res.status(304).json(err);
+    })
 });
 
 

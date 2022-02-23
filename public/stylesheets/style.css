@@ -91,7 +91,14 @@ form{
 
 .titulo-contDatos{
   justify-self: center;
+  font-weight: bold;
+  font-size: 14pt;
 
+}
+
+.item-contDatos{
+  justify-self: center;
+  font-size: 12pt;
 }
 
 /* Fin de Datos */
