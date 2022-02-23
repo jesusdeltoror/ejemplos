@@ -2,21 +2,56 @@ var express = require('express');
 var router = express.Router();
 var {client, dbName} = require('../db/mongo');
 
-/* GET users listing. */
+/* Buscar datos Consulta Básica. */
 router.get('/', function(req, res, next) {
-    res.render('consultas_basicas');
+    indexDatos()
+    .then((data) => {
+            res.render('consultas_basicas',{datos: data});
+    })
+    .catch((err) => {
+        //res.status(304).json(err);
+        console.log(err);
+    }); 
 });
 
+async function indexDatos(){
+    await client.connect();
+    const db = client.db(dbName);
+    const collection = db.collection("usuariosEjemplo");
+    let datos = await collection.find().toArray();
+    return datos;
+}
+
+router.get('/:nombre', function(req, res, next) {
+    buscarDatos(req.params.nombre)
+    .then((data) => {
+        res.render('consultas_basicas',{datos: data});
+    })
+    .catch((err) => {
+        res.status(401).json(err);
+    });
+});
+
+async function buscarDatos(nom){
+    await client.connect();
+    const db = client.db(dbname);
+    const collection = db.collection("usuariosEjemplo");
+    let datos = await collection.find({nombre: nom}).toArray();
+    return datos;
+}
+
+// Insertar Datos Consulta Básica
 router.post('/insertar', function(req, res, next){
     insertarDatos(req.body);
     res.redirect('/consultas');
 });
 
+
 async function insertarDatos(datos){
     await client.connect();
     const db = client.db(dbName);
     const collection = db.collection("usuariosEjemplo");
-    collection.insertOne({
+    await collection.insertOne({
         nombre: datos.nombre,
         edad: datos.edad,
         trabajo: datos.trabajo,

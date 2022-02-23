@@ -76,3 +76,22 @@ form{
 }
 
 /* Fin de Formulario */
+
+/* Grid para mostrar datos */
+
+.tituloDatos{
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.contDatos{
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+}
+
+.titulo-contDatos{
+  justify-self: center;
+
+}
+
+/* Fin de Datos */
