@@ -61,7 +61,39 @@ async function insertarDatos(datos){
         edad: datos.edad,
         trabajo: datos.trabajo,
         activo: datos.activo
+    });
+}
+
+router.put('/actualizar', (res, req, next) => {
+    actualizarDatos(req.body)
+    .then(() =>{
+        res.render('/consultas');
     })
+    .catch((err) => {
+        res.status(400).json(err);
+    })
+});
+
+async function actualizarDatos(datos){
+    await client.connect();
+    const db = client.db(dbName);
+    const collection = db.collection("usuariosEjemplo");
+    const query = {nombre:datos.nombre};
+    let values;
+    if(datos.hasOwnProperty('activo')){
+        values = { $set: {
+            edad:datos.edad, 
+            trabajo:datos.trabajo, 
+            activo:datos.activo}};
+    }
+    else{
+        values = { $set: {
+            edad:datos.edad, 
+            trabajo:datos.trabajo, 
+            activo:"off"}};
+    }
+    
+    await collection.updateOne(query,values);
 }
 
 module.exports = router;
