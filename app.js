@@ -7,6 +7,7 @@ var hbs = require('hbs');
 
 var homeRouter = require('./routes/home');
 var consultasBasicasRouter = require('./routes/consultas_basicas');
+var consultasAggregateRouter = require('./routes/consultas_aggregate');
 var usersRouter = require('./routes/users');
 
 
@@ -26,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', homeRouter);
 app.use('/consultas', consultasBasicasRouter);
+app.use('/consultasA', consultasAggregateRouter);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
