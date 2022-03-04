@@ -4,7 +4,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var hbs = require('hbs');
-var methodOverride = require('method-override');
 
 var homeRouter = require('./routes/home');
 var consultasBasicasRouter = require('./routes/consultas_basicas');
@@ -25,7 +24,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(methodOverride('_method'));
 
 app.use('/', homeRouter);
 app.use('/consultas', consultasBasicasRouter);

@@ -1,4 +1,5 @@
 var express = require('express');
+const { Int32 } = require('mongodb');
 var router = express.Router();
 var {client, dbName} = require('../db/mongo');
 
@@ -9,8 +10,9 @@ router.get('/', function(req, res, next) {
             res.render('consultas_basicas',{datos: data});
     })
     .catch((err) => {
-        //res.status(304).json(err);
+        res.status(304);
         console.log(err);
+        res.end();
     }); 
 });
 
@@ -28,7 +30,9 @@ router.get('/:nombre', function(req, res, next) {
         res.render('consultas_basicas',{datos: data});
     })
     .catch((err) => {
-        res.status(401).json(err);
+        res.status(401);
+        console.log(err);
+        res.end();
     });
 });
 
@@ -47,7 +51,9 @@ router.post('/insertar', function(req, res, next){
         res.redirect('/consultas');
     })
     .catch((err) => {
-        res.status(304).json(err);
+        res.status(401);
+        console.log(err);
+        res.end();
     })
 });
 
@@ -56,44 +62,51 @@ async function insertarDatos(datos){
     await client.connect();
     const db = client.db(dbName);
     const collection = db.collection("usuariosEjemplo");
+    let edad = Int32(datos.edad);
+    let stat = false;
+    if(datos.activo !== undefined){
+        stat = true;
+    }
     await collection.insertOne({
         nombre: datos.nombre,
-        edad: datos.edad,
+        edad: edad,
         trabajo: datos.trabajo,
-        activo: datos.activo
+        activo: stat
     });
 }
 
-router.put('/actualizar/:data', (res, req, next) => {
-    /*actualizarDatos(req.params)
+router.post('/actualizar', function(req, res, next){
+    actualizarDatos(req.body)
     .then(() =>{
-        res.render('/consultas');
+        res.redirect('/consultas');
     })
     .catch((err) => {
-        res.status(400).json(err);
-    })*/
+        res.status(401);
+        res.end();
+    });
 });
 
 async function actualizarDatos(datos){
     await client.connect();
     const db = client.db(dbName);
     const collection = db.collection("usuariosEjemplo");
-    const query = {nombre:datos.nombre};
+    const filtro = {nombre:datos.nombre};
     let values;
-    if(datos.hasOwnProperty('activo')){
+    let edad = Int32(datos.edad);
+    if(datos.activo !== undefined){
         values = { $set: {
-            edad:datos.edad, 
+            edad:edad, 
             trabajo:datos.trabajo, 
             activo:true}};
     }
     else{
         values = { $set: {
-            edad:datos.edad, 
+            edad:edad, 
             trabajo:datos.trabajo, 
             activo:false}};
     }
     
-    await collection.updateOne(query,values);
+    await collection.updateOne(filtro,values);
 }
 
 module.exports = router;
