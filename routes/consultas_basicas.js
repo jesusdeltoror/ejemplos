@@ -64,14 +64,14 @@ async function insertarDatos(datos){
     });
 }
 
-router.put('/actualizar', (res, req, next) => {
-    actualizarDatos(req.body)
+router.put('/actualizar/:data', (res, req, next) => {
+    /*actualizarDatos(req.params)
     .then(() =>{
         res.render('/consultas');
     })
     .catch((err) => {
         res.status(400).json(err);
-    })
+    })*/
 });
 
 async function actualizarDatos(datos){
@@ -84,13 +84,13 @@ async function actualizarDatos(datos){
         values = { $set: {
             edad:datos.edad, 
             trabajo:datos.trabajo, 
-            activo:datos.activo}};
+            activo:true}};
     }
     else{
         values = { $set: {
             edad:datos.edad, 
             trabajo:datos.trabajo, 
-            activo:"off"}};
+            activo:false}};
     }
     
     await collection.updateOne(query,values);

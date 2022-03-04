@@ -101,4 +101,8 @@ form{
   font-size: 12pt;
 }
 
+.link{
+  cursor: pointer;
+}
+
 /* Fin de Datos */
