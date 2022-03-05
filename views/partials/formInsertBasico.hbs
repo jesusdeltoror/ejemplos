@@ -1,21 +1,24 @@
 <form action="/consultas/insertar" method="post">
-    <span class="formItem">
-        <label for="nom">Nombre : </label>
-        <input type="text" id="nom" name="nombre" required>
-    </span>
-    <span class="formItem">
-        <label for="edad">Edad : </label>
-        <input type="number" class="valNum" id="edad" name="edad" min="1" max="100" step="1" required>
-    </span>
-    <span class="formItem">
-        <label for="trabajo">Trabajo : </label>
-        <input type="text" id="trabajo" name="trabajo" required>
-    </span>
-    <span class="formItem">
-        <label for="activo">Activo : </label>
-        <input type="checkbox" name="activo" id="activo" checked>
-    </span>
-    <span class="formItem">
-        <input type="submit" value="Enviar">
-    </span>
+    <fieldset>
+        <legend>Insertar Datos</legend>
+        <span class="formItem">
+            <label for="nom">Nombre : </label>
+            <input type="text" id="nom" name="nombre" required>
+        </span>
+        <span class="formItem">
+            <label for="edad">Edad : </label>
+            <input type="number" class="valNum" id="edad" name="edad" min="1" max="100" step="1" required>
+        </span>
+        <span class="formItem">
+            <label for="trabajo">Trabajo : </label>
+            <input type="text" id="trabajo" name="trabajo" required>
+        </span>
+        <span class="formItem">
+            <label for="activo">Activo : </label>
+            <input type="checkbox" name="activo" id="activo" checked>
+        </span>
+        <span class="formItem">
+            <input type="submit" value="Enviar">
+        </span>
+    </fieldset>
 </form>
