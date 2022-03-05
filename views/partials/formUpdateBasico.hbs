@@ -1,21 +1,24 @@
 <form id="editForm" action="/consultas/actualizar" method="POST">
-    <span class="formItem">
-        <label for="nom">Nombre : </label>
-        <input type="text" id="nomEdit" name="nombre" readonly disabled="true">
-    </span>
-    <span class="formItem">
-        <label for="edad">Edad : </label>
-        <input type="number" class="valNum" id="edadEdit" name="edad" min="1" max="100" step="1" disabled="true" required>
-    </span>
-    <span class="formItem">
-        <label for="trabajo">Trabajo : </label>
-        <input type="text" id="trabajoEdit" name="trabajo" disabled="true" required>
-    </span>
-    <span class="formItem">
-        <label for="activo">Activo : </label>
-        <input type="checkbox" name="activo" disabled="true" id="activoEdit">
-    </span>
-    <span class="formItem">
-        <input type="submit" value="Enviar" disabled="true">
-    </span>
+    <fieldset>
+        <legend>Editar Datos</legend>
+        <span class="formItem">
+            <label for="nom">Nombre : </label>
+            <input type="text" id="nomEdit" name="nombre" readonly disabled="true">
+        </span>
+        <span class="formItem">
+            <label for="edad">Edad : </label>
+            <input type="number" class="valNum" id="edadEdit" name="edad" min="1" max="100" step="1" disabled="true" required>
+        </span>
+        <span class="formItem">
+            <label for="trabajo">Trabajo : </label>
+            <input type="text" id="trabajoEdit" name="trabajo" disabled="true" required>
+        </span>
+        <span class="formItem">
+            <label for="activo">Activo : </label>
+            <input type="checkbox" name="activo" disabled="true" id="activoEdit">
+        </span>
+        <span class="formItem">
+            <input type="submit" value="Enviar" disabled="true">
+        </span>
+    </fieldset>
 </form>

@@ -1,4 +1,4 @@
-<h1 class="tituloDatos">datos</h1>
+<h1 class="tituloDatos">DATOS</h1>
 <div class="contDatos">
     <span class="titulo-contDatos">Nombre</span>
     <span class="titulo-contDatos">Edad</span>
@@ -14,8 +14,8 @@
                 <span class="item-contDatos">{{edad}}</span>
                 <span class="item-contDatos">{{trabajo}}</span>
                 <span class="item-contDatos">{{activo}}</span>
-                <span class="item-contDatos link" onclick="cargaEdit({nombre:'{{nombre}}',edad:{{edad}},trabajo:'{{trabajo}}',activo:'{{activo}}'})">Editar</span>
-                <span class="item-contDatos">♣</span>
+                <span class="item-contDatos link blue" onclick="cargaEdit({nombre:'{{nombre}}',edad:{{edad}},trabajo:'{{trabajo}}',activo:'{{activo}}'})"><i class="fas fa-user-pen"></i></span>
+                <span class="item-contDatos link red"><i class="fas fa-user-slash"></i></span>
             {{/with}}
         {{/each}}
     {{else}}
