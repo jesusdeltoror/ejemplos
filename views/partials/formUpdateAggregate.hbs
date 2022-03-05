@@ -1,21 +1,32 @@
-<form action="" method="post">
+<form id="editForm" action="/consultasA/actualizar" method="post">
+    
+        <input type="text" id="_idEdit" name="_id" hidden>
+    
     <span class="formItem">
         <label for="nom">Nombre : </label>
-        <input type="text" id="nom" name="nombre" required>
+        <input type="text" id="nomEdit" name="nombre" disabled="true">
     </span>
     <span class="formItem">
         <label for="edad">Edad : </label>
-        <input type="number" id="edad" name="edad" required>
+        <input type="number" class="valNum" id="edadEdit" name="edad" min="1" max="100" step="1" disabled="true" required>
     </span>
     <span class="formItem">
         <label for="trabajo">Trabajo : </label>
-        <input type="text" id="trabajo" name="trabajo" required>
+        <input type="text" id="trabajoEdit" name="trabajo" disabled="true" required>
+    </span>
+    <span class="formItem">
+        <label for="emailEdit">Email : </label>
+        <input type="email" id="emailEdit" name="email" disabled="true" required>
+    </span>
+    <span class="formItem">
+        <label for="passwordEdit">Password : </label>
+        <input type="password" id="passwordEdit" name="password" disabled="true" required>
     </span>
     <span class="formItem">
         <label for="activo">Activo : </label>
-        <input type="radio" name="activo" id="activo">
+        <input type="checkbox" name="activo" disabled="true" id="activoEdit">
     </span>
     <span class="formItem">
-        <input type="submit" value="Enviar">
+        <input type="submit" value="Enviar" disabled="true">
     </span>
 </form>

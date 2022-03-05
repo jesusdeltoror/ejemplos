@@ -3,6 +3,8 @@
     <span class="titulo-contDatos">Nombre</span>
     <span class="titulo-contDatos">Edad</span>
     <span class="titulo-contDatos">Trabajo</span>
+    <span class="titulo-contDatos">Correo</span>
+    <span class="titulo-contDatos">Contraseña</span>
     <span class="titulo-contDatos">Activo</span>
     <span class="titulo-contDatos">Editar</span>
     <span class="titulo-contDatos">Eliminar</span>
@@ -13,9 +15,11 @@
                 <span class="item-contDatos">{{nombre}}</span>
                 <span class="item-contDatos">{{edad}}</span>
                 <span class="item-contDatos">{{trabajo}}</span>
+                <span class="item-contDatos">{{email}}</span>
+                <span class="item-contDatos">{{password}}</span>
                 <span class="item-contDatos">{{activo}}</span>
-                <span class="item-contDatos">Editar{{♠}}</span>
-                <span class="item-contDatos">Borrar{{♣}}</span>
+                <i class="fas fa-pen-square item-contDatos link" onclick="cargaEditAggregate({_id:'{{_id}}',nombre:'{{nombre}}',edad:{{edad}},email:'{{email}}',password:'{{password}}',trabajo:'{{trabajo}}',activo:'{{activo}}'})"></i>
+                <span class="item-contDatos">♣</span>
             {{/with}}
         {{/each}}
     {{else}}

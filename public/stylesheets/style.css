@@ -87,6 +87,7 @@ form{
 .contDatos{
   display: grid;
   grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: 2rem;
 }
 
 .titulo-contDatos{
