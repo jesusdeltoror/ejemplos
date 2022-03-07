@@ -3,6 +3,37 @@ main{
     grid-template-rows: minmax(15rem, 1fr);
 }
 
+/* FORMULARIOS */
+.formContenedor{
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+
+form{
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.insertar, .actualizar, .buscar{
+  position: relative;
+  background-color: rgb(182,182,182);
+  border-radius: 1rem;
+  box-shadow: #000 2px 2px 4px,inset #fff 2px 2px 4px;
+}
+  
+  .form-titulo{
+    position: absolute;
+    height: 100%;
+    width: 5rem;
+    border-radius: 1rem 0 0 1rem;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    writing-mode: vertical-rl;
+    font-size: 2.5rem;
+    box-shadow: #000 2px 2px 4px,inset #fff 2px 2px 4px;
+  }
+
 .contDatos{
     display: grid;
     grid-template-columns: repeat(8, 1fr);
@@ -14,4 +45,26 @@ main{
   
   .item-contDatos{
     font-size: 1rem;
+  }
+
+
+  /* colores */
+
+  .green{
+    background-color: greenyellow;
+  }
+  .green-background{
+    background-color: rgb(211, 245, 160);
+  }
+  .blu{
+    background-color: rgb(2, 119, 214);
+  }
+  .blue-background{
+    background-color: rgb(47, 171, 253);
+  }
+  .orange{
+    background-color: orangered;
+  }
+  .orange-background{
+    background-color: rgb(252, 166, 135);
   }

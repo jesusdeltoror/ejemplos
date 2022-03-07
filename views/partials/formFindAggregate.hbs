@@ -1,0 +1,32 @@
+<form id="findForm" action="/consultasA/buscar" method="post" class="findForm">
+    
+        <input type="text" id="_idFind" name="_id" hidden>
+    
+    <span class="formItem">
+        <label for="nom">Nombre : </label>
+        <input type="text" id="nomFind" name="nombre" >
+    </span>
+    <span class="formItem">
+        <label for="edad">Edad : </label>
+        <input type="number" class="valNum" id="edadFind" name="edad" min="1" max="100" step="1"  >
+    </span>
+    <span class="formItem">
+        <label for="trabajo">Trabajo : </label>
+        <input type="text" id="trabajoFind" name="trabajo"  >
+    </span>
+    <span class="formItem">
+        <label for="emailFind">Email : </label>
+        <input type="email" id="emailFind" name="email"  >
+    </span>
+    <span class="formItem">
+        {{!-- <label for="passwordFind">Password : </label>
+        <input type="password" id="passwordFind" name="password" disabled="true" > --}}
+    </span>
+    <span class="formItem">
+        <label for="activo">Activo : </label>
+        <input type="checkbox" name="activo"  id="activoFind">
+    </span>
+    <span class="formItem">
+        <input type="submit" value="Enviar" >
+    </span>
+</form>

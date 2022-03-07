@@ -1,5 +1,6 @@
 var express = require('express');
 const async = require('hbs/lib/async');
+const { ObjectId } = require('mongodb');
 var router = express.Router();
 var {client, dbName} = require('../db/mongo');
 
@@ -26,51 +27,75 @@ async function allData(){
 }
 
 //Busca usuarios
-router.get('/buscar/:email', function(req, res, next){
-    buscarData(req.params.email)
+router.post('/buscar', function(req, res, next){
+    buscarData(req.body)
         .then((elemento)=>{
-            res.send(elemento);
+            res.render('consultas_aggregate',{datos:elemento});
         })
         .catch((err)=>{
             res.send(err);
         })
         .finally(()=>{
-            client.close
+            client.close()
         })
 });
 
 
-async function buscarData(correo){
+async function buscarData(datos){
     await client.connect();
     const db = client.db(dbName);
     const collection = db.collection('usuariosEjemploAggregate');
-    const datos = await collection.aggregate([
+    let values = Object.values(datos);
+    datos.nombre  = datos.nombre==="" ? null:datos.nombre;
+    datos.edad    = datos.edad==="" ? null:datos.edad;
+    datos.email   = datos.email==="" ? null:datos.email;
+    datos.trabajo = datos.trabajo==="" ? null:datos.trabajo;
+    datos.activo  = datos.activo==="on" ? true:false;
+    const result = await collection.aggregate([
         {
-            $match:{email: correo}
+            $match: {
+                        $or:    [
+                                    {email: datos.email},
+                                    {nombre: datos.nombre},
+                                    {edad: datos.edad},
+                                    {trabajo: datos.trabajo},
+                                    {activo: datos.activo},
+                                ]
+                    }
         }
     ]).toArray()
-    return datos;
+    return result;
 }
 
 //Inserta usuarios
 router.post('/insertar', function(req, res, next){
-    insertarData(req.body);
-    res.redirect('/consultasA');
+    insertarData(req.body)
+        .then((a)=>{
+            res.redirect('/consultasA');
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+        .finally(()=>{
+            client.close();
+        })
+    
 });
 
 async function insertarData(datos){
     await client.connect();
     const db = client.db(dbName);
     const collection = db.collection('usuariosEjemploAggregate');
-    const valida = collection.aggregate([
+    const valida = await collection.aggregate([
         {
             $match: {email: datos.email},
+        },
+        {
             $limit: 1
         }
-    ]);
-    if (!valida) {
-        console.log('EL correo ya existe');
-    }else{
+    ]).toArray();
+    datos.activo  = datos.activo==="on" ? true:false;
+    if(valida == false){
         await collection.insertOne({
             nombre: datos.nombre,
             edad: datos.edad,
@@ -79,14 +104,25 @@ async function insertarData(datos){
             password: datos.password,
             activo: datos.activo
         });
+    }else{
+        console.log("El usuario ya existe");
     }
+    
 }
 
 //Edita usuarios
 router.post('/actualizar', function(req, res, next){
-    console.log(req.body);
-    actualizarData(req.body);
-    res.redirect('/consultasA');
+    actualizarData(req.body)
+        .then(()=>{
+            res.redirect('/consultasA');
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+        .finally(()=>{
+            client.close()
+        })
+    
 });
 
 async function actualizarData(datos){
@@ -95,8 +131,11 @@ async function actualizarData(datos){
     const collection = db.collection('usuariosEjemploAggregate');
     if(datos.activo !== undefined){
         values = {
-            edad:datos.edad, 
-            trabajo:datos.trabajo, 
+            nombre: datos.nombre,
+            edad: datos.edad,
+            trabajo: datos.trabajo,
+            email: datos.email,
+            password: datos.password, 
             activo:true
         }
     }
@@ -110,14 +149,35 @@ async function actualizarData(datos){
             activo: false
         }
     }
-    await collection.aggregate([
+    console.log(datos);
+    await collection.updateOne(
         {
-            $match:{_id: `ObjectId(${datos._id})`},
+            _id: ObjectId(datos._id)
         },
         {
             $set: values
         }
-    ]);
+    );
 };
 
+/* Elimina usuarios */
+router.get('/eliminar/:_id', function(req, res, nex){
+    eliminarData(req.params._id)
+        .then(()=>{
+            res.redirect('/consultasA');
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+        .finally(()=>{
+            client.close()
+        })
+});
+
+async function eliminarData(id){
+    await client.connect();
+    const db = client.db(dbName);
+    const collection = db.collection('usuariosEjemploAggregate');
+    await collection.deleteOne({_id: ObjectId(id)});
+}
 module.exports = router;

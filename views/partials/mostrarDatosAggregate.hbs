@@ -18,8 +18,8 @@
                 <span class="item-contDatos">{{email}}</span>
                 <span class="item-contDatos">{{password}}</span>
                 <span class="item-contDatos">{{activo}}</span>
-                <i class="fas fa-pen-square item-contDatos link" onclick="cargaEditAggregate({_id:'{{_id}}',nombre:'{{nombre}}',edad:{{edad}},email:'{{email}}',password:'{{password}}',trabajo:'{{trabajo}}',activo:'{{activo}}'})"></i>
-                <span class="item-contDatos">♣</span>
+                <span class="item-contDatos link blue" onclick="cargaEditAggregate({_id:'{{_id}}',nombre:'{{nombre}}',edad:{{edad}},email:'{{email}}',password:'{{password}}',trabajo:'{{trabajo}}',activo:'{{activo}}'})"><i class="fas fa-marker fa-xl"></i></span>
+                <span class="item-contDatos "><a class="red" href="consultasA/eliminar/{{_id}}"><i class="fas fa-trash fa-xl"></i></a></span>
             {{/with}}
         {{/each}}
     {{else}}

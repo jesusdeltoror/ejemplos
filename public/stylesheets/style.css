@@ -129,11 +129,11 @@ form > fieldset > legend{
 }
 
 .red{
-  color: #F00;
+  color: rgb(243, 78, 78);
 }
 
 .blue{
-  color: #00F;
+  color: rgb(4, 129, 212);
 }
 
 /* Fin de Datos */
